@@ -1,14 +1,39 @@
-﻿@model Persona
-
+﻿@model HomeIndexViewModel
 
 @{
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Soy @Model.Nombre (@Model.Edad)</h1>
-    <h2>Soy un desarrollador backend especializado en la tecnología .NET</h2>
+<partial name="_Presentacion" />
 
-    <img id="foto" src="~/imagenes/img_7640.jpg" alt="Foto de Gonzalo" />
+<partial name="_Habilidades" />
 
-</div>
+@if (Model.Proyectos is not null)
+{
+    <div class="text-center" style="padding-top: 6rem">
+        <h1>Aquuí puedes ver mis proyectos</h1>
+        <p>Aquí puedes ver mis trabajos más recientes</p>
+    </div>
+
+    <div class="container">
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            @foreach (var proyecto in Model.Proyectos)
+            {
+                <div class="col">
+                    <div class="card h-100">
+                        <img src="@proyecto.ImagenURL" class="card-img-top" alt="imagen proyecto" />
+                        <div class="card-body">
+                            <h5 class="card-title">@proyecto.Titulo</h5>
+                            <p class="card-text">@proyecto.Descripcion</p>
+                        </div>
+                        <div class="card-footer">
+                            <a class="btn btn-primary" href="@proyecto.link" target="_blank" rel="noopener noreferrer">Visitar</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+}
+
+
